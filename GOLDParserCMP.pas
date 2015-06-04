@@ -3,7 +3,7 @@ unit GOLDParserCMP;
 interface
 
 uses
-  Windows, Messages, SysUtils, Classes, GOLDParser, Token, Reduction, Rule, Symbol, stdCtrls;
+  SysUtils, Classes, GOLDParser, Token, Rule, Symbol;
 
 type
   TLexicalError = procedure(Sender: TObject) of Object;
