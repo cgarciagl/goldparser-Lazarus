@@ -3,7 +3,7 @@ unit SourceFeeder;
 interface
 
 uses
-   Classes;
+   Classes, SysUtils;
 
 type
 
@@ -81,7 +81,7 @@ end;
 procedure TSourceFeeder.SetText(const Value: string);
 begin
   FStream.Size := 0;
-  FStream.WriteString(Value);
+  FStream.WriteString(AdjustLineBreaks(Value,tlbsCRLF));
   FStream.Position := 0;
 end;
 
