@@ -122,9 +122,12 @@ begin
 end;
 
 function TGrammarReader.ReadInt16: Integer;
+var
+   b0, b1:byte;
 begin
-  Result := ord(FBuffer[FBufferPos]) + ord(FBuffer[FBufferPos + 1]) * 256;
-  FBufferPos := FBufferPos + 2;
+  b0 := ReadByte;
+  b1 := ReadByte;
+  Result := LEToN((b1 shl 8) + b0);
 end;
 
 function TGrammarReader.ReadByte: Char;
@@ -140,10 +143,7 @@ begin
   case Ord(EntryType) of
   EntryContentEmpty     :  Result := varEmpty;
   EntryContentInteger   :  Result := ReadInt16;
-  EntryContentBoolean   :  begin
-                             Result := ReadByte;
-                             if Result = #1 then Result := True else Result := False;
-                           end;
+  EntryContentBoolean   :  Result := ReadByte = #1
   EntryContentString    :  Result := ReadUniString;
   EntryContentByte      :  Result := ReadByte;
   end;
@@ -285,4 +285,4 @@ begin
 end;
 
 end.
-
+
